@@ -1,0 +1,21 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "Invoice Processor" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - link "Ver facturas" [ref=e5] [cursor=pointer]:
+        - /url: /invoices
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - heading "Digitalización de Facturas con IA" [level=1] [ref=e9]
+        - paragraph [ref=e10]: Sube una imagen (PNG, JPG) o PDF de tu factura para extraer automáticamente los datos.
+      - generic [ref=e11]:
+        - generic [ref=e13] [cursor=pointer]: factura_01.JPG
+        - generic [ref=e27]: Error al procesar la factura. Por favor intente de nuevo.
+        - generic [ref=e14]:
+          - button "Procesar factura" [ref=e15] [cursor=pointer]
+          - button "Cancelar" [ref=e26] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e21] [cursor=pointer]:
+    - img [ref=e22]
+  - alert [ref=e25]

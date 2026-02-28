@@ -1,0 +1,43 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "Invoice Processor" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - link "Ver facturas" [ref=e5] [cursor=pointer]:
+        - /url: /invoices
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - heading "Facturas procesadas" [level=1] [ref=e9]
+        - paragraph [ref=e10]: Lista de facturas digitalizadas con IA
+      - table [ref=e12]:
+        - rowgroup [ref=e13]:
+          - row "Archivo Proveedor Cliente Total Fecha Acciones" [ref=e14]:
+            - columnheader "Archivo" [ref=e15]
+            - columnheader "Proveedor" [ref=e16]
+            - columnheader "Cliente" [ref=e17]
+            - columnheader "Total" [ref=e18]
+            - columnheader "Fecha" [ref=e19]
+            - columnheader "Acciones" [ref=e20]
+        - rowgroup [ref=e21]:
+          - row "factura_02.jpg GRACE INFILE, S.A. EDDY LOPEZ Q 395.00 2020-02-12 Ver" [ref=e22]:
+            - cell "factura_02.jpg" [ref=e23]
+            - cell "GRACE INFILE, S.A." [ref=e24]
+            - cell "EDDY LOPEZ" [ref=e25]
+            - cell "Q 395.00" [ref=e26]
+            - cell "2020-02-12" [ref=e27]
+            - cell "Ver" [ref=e28]:
+              - link "Ver" [ref=e29] [cursor=pointer]:
+                - /url: /invoices/2
+          - row "factura_01.JPG MUNICIPALIDAD DE QUETZALTENANGO MONZÓN ESTRADA YOEL FRANSUA Q 600.00 2026-02-12 Ver" [ref=e30]:
+            - cell "factura_01.JPG" [ref=e31]
+            - cell "MUNICIPALIDAD DE QUETZALTENANGO" [ref=e32]
+            - cell "MONZÓN ESTRADA YOEL FRANSUA" [ref=e33]
+            - cell "Q 600.00" [ref=e34]
+            - cell "2026-02-12" [ref=e35]
+            - cell "Ver" [ref=e36]:
+              - link "Ver" [ref=e37] [cursor=pointer]:
+                - /url: /invoices/1
+  - button "Open Next.js Dev Tools" [ref=e43] [cursor=pointer]:
+    - img [ref=e44]
+  - alert [ref=e47]
