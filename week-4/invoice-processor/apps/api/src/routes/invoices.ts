@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { db, schema } from "../db";
 import { eq } from "drizzle-orm";
+import { invoiceUpdateSchema, type InvoiceItem } from "@invoice-processor/shared";
 import { extractInvoiceFromImage } from "../services/ocr";
 import { generateInvoiceReportPdf } from "../services/pdf-export";
 import {
@@ -63,6 +64,76 @@ invoicesRoutes.get("/:id/pdf", async (c) => {
   });
 });
 
+invoicesRoutes.put("/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  if (Number.isNaN(id)) {
+    return c.json({ error: "Invalid ID" }, 400);
+  }
+  const invoice = await db.query.invoices.findFirst({
+    where: eq(schema.invoices.id, id),
+  });
+  if (!invoice) {
+    return c.json({ error: "Invoice not found" }, 404);
+  }
+  if (invoice.status === "APROBADA") {
+    return c.json(
+      { error: "No se puede editar una factura ya aprobada." },
+      403
+    );
+  }
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: "Invalid JSON body" }, 400);
+  }
+  const parsed = invoiceUpdateSchema.safeParse(body);
+  if (!parsed.success) {
+    return c.json({ error: "Invalid payload", details: parsed.error.flatten() }, 400);
+  }
+  const data = parsed.data;
+  const updateValues: Record<string, unknown> = {};
+  if (data.producerNit !== undefined) updateValues.producerNit = data.producerNit;
+  if (data.producerName !== undefined) updateValues.producerName = data.producerName;
+  if (data.consumerNit !== undefined) updateValues.consumerNit = data.consumerNit;
+  if (data.consumerName !== undefined) updateValues.consumerName = data.consumerName;
+  if (data.subtotal !== undefined) updateValues.subtotal = data.subtotal;
+  if (data.taxes !== undefined) updateValues.taxes = data.taxes;
+  if (data.total !== undefined) updateValues.total = data.total;
+  if (data.date !== undefined) updateValues.date = data.date;
+  if (data.status !== undefined) updateValues.status = data.status;
+
+  if (Object.keys(updateValues).length > 0) {
+    await db
+      .update(schema.invoices)
+      .set(updateValues as Record<string, string | number | null>)
+      .where(eq(schema.invoices.id, id));
+  }
+
+  if (data.items !== undefined) {
+    await db.delete(schema.invoiceItems).where(eq(schema.invoiceItems.invoiceId, id));
+    if (data.items.length > 0) {
+      await db.insert(schema.invoiceItems).values(
+        data.items.map((item: InvoiceItem) => ({
+          invoiceId: id,
+          quantity: item.quantity,
+          description: item.description,
+          price: item.price,
+          subtotal: item.subtotal,
+        }))
+      );
+    }
+  }
+
+  const updated = await db.query.invoices.findFirst({
+    where: eq(schema.invoices.id, id),
+  });
+  const items = await db.query.invoiceItems.findMany({
+    where: eq(schema.invoiceItems.invoiceId, id),
+  });
+  return c.json({ ...updated, items });
+});
+
 invoicesRoutes.post("/upload", async (c) => {
   try {
     const body = await c.req.parseBody();
@@ -120,6 +191,7 @@ invoicesRoutes.post("/upload", async (c) => {
         taxes: extraction.taxes,
         total: extraction.total,
         date: extraction.date,
+        status: "POR_REVISAR",
       })
       .returning();
 

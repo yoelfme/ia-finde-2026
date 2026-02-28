@@ -7,6 +7,7 @@ interface Invoice {
   consumerName: string | null;
   total: number | null;
   date: string | null;
+  status?: string;
   createdAt: string | null;
 }
 
@@ -42,6 +43,9 @@ export function InvoiceTable({ invoices }: { invoices: Invoice[] }) {
             <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-600">
               Fecha
             </th>
+            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-600">
+              Estado
+            </th>
             <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-slate-600">
               Acciones
             </th>
@@ -69,6 +73,17 @@ export function InvoiceTable({ invoices }: { invoices: Invoice[] }) {
               </td>
               <td className="whitespace-nowrap px-6 py-4 text-sm text-slate-600">
                 {inv.date ?? inv.createdAt ?? "—"}
+              </td>
+              <td className="whitespace-nowrap px-6 py-4">
+                <span
+                  className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                    inv.status === "APROBADA"
+                      ? "bg-green-100 text-green-800"
+                      : "bg-amber-100 text-amber-800"
+                  }`}
+                >
+                  {inv.status === "APROBADA" ? "Aprobada" : "Por revisar"}
+                </span>
               </td>
               <td className="whitespace-nowrap px-6 py-4 text-right text-sm">
                 <Link

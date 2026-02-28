@@ -14,6 +14,7 @@ export const invoices = sqliteTable("invoices", {
   taxes: real("taxes"),
   total: real("total"),
   date: text("date"),
+  status: text("status").notNull().default("POR_REVISAR"),
   createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`),
 });
 
