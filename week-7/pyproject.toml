@@ -1,0 +1,12 @@
+[project]
+name = "week-7"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "langchain-community>=0.4.1",
+    "langchain-openai>=1.1.11",
+    "langchain-postgres>=0.0.17",
+    "pypdf>=6.9.1",
+]
