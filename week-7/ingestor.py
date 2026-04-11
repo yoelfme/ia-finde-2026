@@ -28,10 +28,5 @@ vector_store = PGVector(
     connection="postgresql+psycopg://postgres:postgres@localhost:5432/postgres",
 )
 
-# vector_store.add_documents(all_splits)
-results = vector_store.similarity_search(
-    "Cual es el maximo de horas de trabajo por dia?"
-)
-
-print(results)
-
+# Store documents in the vector store   
+vector_store.add_documents(documents=all_splits)

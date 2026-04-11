@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pg-vector:/var/lib/postgresql/data
 
 volumes:
-  pgdata:
+  pg-vector:
