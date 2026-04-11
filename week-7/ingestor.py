@@ -2,6 +2,9 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_postgres import PGVector
 from langchain_openai import OpenAIEmbeddings
+from dotenv import load_dotenv
+
+load_dotenv()
 
 file_path = "./docs/codigo-de-trabajo.pdf"
 
@@ -21,8 +24,8 @@ embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
 vector_store = PGVector(
     embeddings=embeddings,
-    collection_name="codigo_de_trabajo",
-    connection="postgresql+psycopg://postgres:mysecretpassword@localhost:5432/postgres",
+    collection_name="codigos",
+    connection="postgresql+psycopg://postgres:postgres@localhost:5432/postgres",
 )
 
 # vector_store.add_documents(all_splits)

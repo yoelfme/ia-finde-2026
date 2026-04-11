@@ -9,4 +9,5 @@ dependencies = [
     "langchain-openai>=1.1.11",
     "langchain-postgres>=0.0.17",
     "pypdf>=6.9.1",
+    "python-dotenv>=1.0.0",
 ]

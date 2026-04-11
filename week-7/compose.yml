@@ -1,0 +1,13 @@
+services:
+  pgvector:
+    image: pgvector/pgvector:pg18-trixie
+    container_name: pg-vector
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

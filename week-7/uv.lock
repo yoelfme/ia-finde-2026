@@ -1101,6 +1101,7 @@ dependencies = [
     { name = "langchain-openai" },
     { name = "langchain-postgres" },
     { name = "pypdf" },
+    { name = "python-dotenv" },
 ]
 
 [package.metadata]
@@ -1109,6 +1110,7 @@ requires-dist = [
     { name = "langchain-openai", specifier = ">=1.1.11" },
     { name = "langchain-postgres", specifier = ">=0.0.17" },
     { name = "pypdf", specifier = ">=6.9.1" },
+    { name = "python-dotenv", specifier = ">=1.0.0" },
 ]
 
 [[package]]
