@@ -77,12 +77,6 @@ flowchart LR
 docker compose -f compose.yml up -d
 ```
 
-Create the `agentdb` database (first time only):
-
-```bash
-docker exec -it pg-vector psql -U postgres -c "CREATE DATABASE agentdb;"
-```
-
 ### 2. Python environment and dependencies
 
 ```bash
