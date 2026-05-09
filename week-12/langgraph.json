@@ -1,0 +1,7 @@
+{
+    "dependencies": ["."],
+    "graphs": {
+        "text-to-sql": "./main.py:agent"
+    },
+    "env": ".env"
+}
